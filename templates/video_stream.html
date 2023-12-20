@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream Page</title>
+</head>
+<body>
+    <h2>Video Stream Page</h2>
+    <img id="video" src="{{ url_for('video_feed') }}" width="640" height="480">
+    <br>
+    <button onclick="startStream()">Play</button>
+    <button onclick="stopStream()">Stop</button>
+
+    <script>
+      function startStream() {
+          fetch("{{ url_for('play_video') }}").then(response => {
+              if (response.ok) {
+                  document.getElementById('video').src = "{{ url_for('video_feed') }}";
+              }
+          });
+      }
+  
+      function stopStream() {
+          fetch("{{ url_for('stop_video') }}").then(response => {
+              if (response.ok) {
+                  document.getElementById('video').src = "";
+              }
+          });
+      }
+    </script>
+</body>
+</html>
